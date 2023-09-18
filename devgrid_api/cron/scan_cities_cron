@@ -1,0 +1,1 @@
+* * * * * python devgrid_api/cron/cron.py >> /var/log/cron.log 2>&1

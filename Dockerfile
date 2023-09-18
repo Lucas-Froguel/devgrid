@@ -1,7 +1,5 @@
-FROM python:3.9.6 as backend
-COPY docker/vault.sh /vault.sh
-RUN chmod +x /vault.sh
-RUN /vault.sh
+FROM python:3.11.4 as backend
+
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
   DJANGO_ENV=${DJANGO_ENV} \
   PYTHONFAULTHANDLER=1 \
@@ -10,27 +8,36 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
   PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
-  POETRY_VERSION=1.1.13 \
+  POETRY_VERSION=1.6.1 \
   POETRY_VIRTUALENVS_CREATE=false \
   DJANGO_ENV=local
+
 RUN apt update && apt install -y \
   curl \
   libffi-dev \
   openssl \
   gettext  \
+  cron \
   musl-dev  \
   && rm -rf /var/lib/apt/lists/* \
   && pip install "poetry==$POETRY_VERSION"
+
 WORKDIR /pysetup
 COPY ./pyproject.toml ./poetry.lock*  /pysetup/
 RUN echo $DJANGO_ENV
-RUN poetry install $(test "$DJANGO_ENV" = production && echo "--no-dev") --no-interaction --no-ansi
+RUN poetry install --no-interaction --no-ansi
 WORKDIR /app
 COPY . /app
 USER root
-RUN mv .env.template .env
-RUN python /app/manage.py collectstatic --no-input
-RUN python /app/manage.py compilemessages
+
+# set up cron
+RUN chmod 0744 devgrid_api/cron/cron.py
+COPY devgrid_api/cron/scan_cities_cron /etc/cron.d/send_plates-cron
+RUN chmod 0644 /etc/cron.d/scan_cities_cron
+RUN crontab /etc/cron.d/scan_cities_cron
+RUN touch /var/log/cron.log
+CMD cron && tail -f /var/log/cron.log
+
 RUN chmod +x /app/entrypoint/entrypoint.sh
+CMD ["cron", "-f"]
 ENTRYPOINT ["/app/entrypoint/entrypoint.sh"]
-# USER 1000
