@@ -7,7 +7,7 @@ from devgrid_api.settings import MONGODB_NAME, MONGO_USERS_COLLECTION, MONGO_CIT
 from devgrid_api.exceptions import UserAlreadyPresent
 
 
-def add_user_cities_to_cities_collection(cities: list):
+def add_user_cities_to_cities_collection(cities: [int]):
     # make sure there is no repetition in the list that will be saved on the db
     cities = list(set(cities))
 
@@ -60,7 +60,7 @@ def add_user_and_cities_to_user_collection(request_data: dict) -> dict:
     return data_id
 
 
-def get_user_cities_percentage(user_id: str) -> dict:
+def get_user_cities_percentage(user_id: str) -> float:
     user = get_one_document_query(
         database=MONGODB_NAME,
         collection=MONGO_USERS_COLLECTION,
@@ -75,7 +75,7 @@ def get_user_cities_percentage(user_id: str) -> dict:
         query={"checked": True}
     )
 
-    percentage = 100 * (len(cities_in_db) / len(user["cities"]))
+    percentage = 100 * (len(cities_in_db[0]["city_ids"]) / len(user["cities"]))
 
     return percentage
 

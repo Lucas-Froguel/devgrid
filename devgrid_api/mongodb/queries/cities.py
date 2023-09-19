@@ -1,6 +1,5 @@
 from devgrid_api.exceptions import DatabaseError, ItemNotFound
 from devgrid_api.mongodb.mongodb import MongoConnection
-from pymongo.collection import ReturnDocument
 
 
 def get_cities_that_are_in_db(

@@ -22,29 +22,5 @@ def fake():
 
 
 @pytest.fixture
-def labors_mongo_format(faker, budget):
-    return [
-        {
-            "_id": "633d82843fd06fc61e8b34a9",
-            "labor_type": "MASON",
-            "budget": "UUID(217f05dc-a5b4-48d7-b145-768a65f3ed4b)",
-            "price": 100,
-            "pricing_type": "DAILY",
-            "target_area": 15.00,
-            "completion_time_type": "DAY",
-            "completion_time": 15,
-            "subtotal": Decimal128('1500')
-        },
-        {
-            "_id": "633d82fedb0f9bff766b22bb",
-            "labor_type": "MASON",
-            "budget": "UUID(217f05dc-a5b4-48d7-b145-768a65f3ed4b)",
-            "price": 200,
-            "pricing_type": "CONTRACT",
-            "target_area": 40.00,
-            "completion_time_type": "MONTH",
-            "completion_time": 20,
-            "subtotal": Decimal128('200')
-        },
-    ]
-
+def cities_data():
+    return ["1234567", "1234568", "1234569", "1234567"]

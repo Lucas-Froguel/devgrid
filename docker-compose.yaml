@@ -11,21 +11,18 @@ services:
     env_file:
       - .env
 
-  # web:
-  #   build:
-  #     context: .
-  #     target: backend
-  #     args:
-  #       DJANGO_ENV: "${DJANGO_ENV}"
-  #   image: devgrid_api
-  #   command: "$DOCKER_COMMAND"
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - .:/app
-  #   stdin_open: true
-  #   tty: true
-  #   depends_on:
-  #     - mongodb
+  web:
+     build:
+       context: .
+       target: backend
+     image: devgrid_api
+     env_file:
+       - .env
+     ports:
+       - "8000:8000"
+     volumes:
+       - .:/app
+     stdin_open: true
+     tty: true
+     depends_on:
+       - mongodb

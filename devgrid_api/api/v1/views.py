@@ -27,7 +27,7 @@ def get_user_percentage_of_completeness_and_city_data_view(request: Request) -> 
     percentage = get_user_cities_percentage(user_id=serializer.data["user_id"])
 
     response_serializer = ResponsePercentageSerializer(
-        data={"user_id": serializer.data["user_id"], "percentage": percentage}
+        data={"user_id": serializer.data["user_id"], "percentage": f"{percentage:.3f}"}
     )
     response_serializer.is_valid(raise_exception=True)
 

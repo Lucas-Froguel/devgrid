@@ -7,7 +7,7 @@ class UserSerializer(Serializer):
 
 
 class ResponsePercentageSerializer(Serializer):
-    percentage = serializers.CharField(max_length=3)
+    percentage = serializers.CharField(max_length=6)
     user_id = serializers.CharField(max_length=100)
 
 

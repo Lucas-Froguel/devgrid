@@ -31,13 +31,14 @@ COPY . /app
 USER root
 
 # set up cron
-RUN chmod 0744 devgrid_api/cron/cron.py
-COPY devgrid_api/cron/scan_cities_cron /etc/cron.d/send_plates-cron
+RUN export DJANGO_SETTINGS_MODULE=devgrid_api.settings
+RUN chmod 0744 cron.py
+COPY cron/scan_cities_cron /etc/cron.d/scan_cities_cron
 RUN chmod 0644 /etc/cron.d/scan_cities_cron
 RUN crontab /etc/cron.d/scan_cities_cron
 RUN touch /var/log/cron.log
-CMD cron && tail -f /var/log/cron.log
+#CMD cron && tail -f /var/log/cron.log
+CMD ["cron","-f", "-L", "2"]
 
 RUN chmod +x /app/entrypoint/entrypoint.sh
-CMD ["cron", "-f"]
 ENTRYPOINT ["/app/entrypoint/entrypoint.sh"]

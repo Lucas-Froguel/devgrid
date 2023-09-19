@@ -3,11 +3,8 @@ Django settings for devgrid_api project.
 
 Generated using django-split-settings, dj-database-url and python-decouple
 """
-import os.path
-from datetime import timedelta
 from pathlib import Path
 import decouple
-from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -69,8 +66,8 @@ WSGI_APPLICATION = "devgrid_api.wsgi.application"
 
 LANGUAGE_CODE = "en"
 TIME_ZONE = "UTC"
-USE_I18N = True
-USE_L10N = True
+USE_I18N = False
+USE_L10N = False
 USE_TZ = False
 
 STATIC_URL = "/static/"
@@ -92,20 +89,9 @@ REST_FRAMEWORK = {
     "COERCE_DECIMAL_TO_STRING": False,
 }
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(
-        days=config("JWT_ACCESS_TOKEN_LIFETIME", cast=int, default=360)
-    ),
-    "REFRESH_TOKEN_LIFETIME": timedelta(
-        days=config("JWT_REFRESH_TOKEN_LIFETIME", cast=int, default=360)
-    ),
-    "USER_ID_FIELD": "id",
-}
-
 
 MONGO_DATABASE_URL = config("MONGO_DATABASE_URL")
 MONGODB_NAME = config("MONGO_DATABASE")
-MONGO_REQUESTS_COLLECTION=config("MONGO_REQUESTS_COLLECTION")
 MONGO_CITIES_DATA_COLLECTION=config("MONGO_CITIES_DATA_COLLECTION")
 MONGO_USERS_COLLECTION=config("MONGO_USERS_COLLECTION")
 
