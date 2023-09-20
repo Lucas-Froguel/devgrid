@@ -4,7 +4,7 @@ from devgrid_api.mongodb.queries.general_queries import insert_one_document_quer
     get_one_document_query
 from devgrid_api.mongodb.queries.cities import get_cities_that_are_in_db
 from devgrid_api.settings import MONGODB_NAME, MONGO_USERS_COLLECTION, MONGO_CITIES_DATA_COLLECTION
-from devgrid_api.exceptions import UserAlreadyPresent
+from devgrid_api.exceptions import UserAlreadyPresent, UserNotFound, ItemNotFound
 
 
 def add_user_cities_to_cities_collection(cities: [int]):
@@ -61,12 +61,15 @@ def add_user_and_cities_to_user_collection(request_data: dict) -> dict:
 
 
 def get_user_cities_percentage(user_id: str) -> float:
-    user = get_one_document_query(
-        database=MONGODB_NAME,
-        collection=MONGO_USERS_COLLECTION,
-        query={"user_id": user_id},
-        raise_exception=True
-    )
+    try:
+        user = get_one_document_query(
+            database=MONGODB_NAME,
+            collection=MONGO_USERS_COLLECTION,
+            query={"user_id": user_id},
+            raise_exception=True
+        )
+    except ItemNotFound as e:
+        raise UserNotFound(details=str(e))
 
     cities_in_db = get_cities_that_are_in_db(
         database=MONGODB_NAME,

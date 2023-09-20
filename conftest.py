@@ -1,5 +1,4 @@
 import pytest
-from bson.decimal128 import Decimal128
 from faker import Faker
 
 @pytest.fixture

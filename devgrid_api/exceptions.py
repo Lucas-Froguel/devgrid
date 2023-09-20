@@ -19,22 +19,8 @@ class UserAlreadyPresent(ExceptionMixin):
 
 
 @dataclass
-class ValidationError(ExceptionMixin):
-    _message: str = _("Something went wrong.")
-    details: str = ""
-    status: int = http_status.HTTP_400_BAD_REQUEST
-
-
-@dataclass
 class DatabaseError(ExceptionMixin):
     _message: str = _("Something went wrong while connecting to the database.")
-    details: str = ""
-    status: int = http_status.HTTP_400_BAD_REQUEST
-
-
-@dataclass
-class MetadataError(ExceptionMixin):
-    _message: str = _("Something went wrong while updating the metadata.")
     details: str = ""
     status: int = http_status.HTTP_400_BAD_REQUEST
 
@@ -43,16 +29,4 @@ class MetadataError(ExceptionMixin):
 class ItemNotFound(ExceptionMixin):
     _message: str = _("Item not found.")
     details: str = ""
-    status: int = http_status.HTTP_400_BAD_REQUEST
-
-
-@dataclass
-class PageNotAnInteger(ExceptionMixin):
-    _message: str = _("Page is not an integer.")
-    status: int = http_status.HTTP_400_BAD_REQUEST
-
-
-@dataclass
-class EmptyPage(ExceptionMixin):
-    _message: str = _("Empty page.")
     status: int = http_status.HTTP_400_BAD_REQUEST

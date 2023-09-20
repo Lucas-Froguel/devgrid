@@ -26,8 +26,10 @@ def get_cities_that_are_in_db(
     ]
     with MongoConnection() as mongo:
         collection = mongo.get_db_collection(database, collection)
-
-        data = list(collection.aggregate(query))
+        try:
+            data = list(collection.aggregate(query))
+        except Exception as e:
+            raise DatabaseError(details=str(e))
 
     return data
 
@@ -58,6 +60,9 @@ def get_latest_sixty_unchecked_cities(
     ]
     with MongoConnection() as mongo:
         collection = mongo.get_db_collection(database, collection)
-        data = list(collection.aggregate(query))
+        try:
+            data = list(collection.aggregate(query))
+        except Exception as e:
+            raise DatabaseError(details=str(e))
 
     return data

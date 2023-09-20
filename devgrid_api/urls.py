@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
 
@@ -23,7 +22,6 @@ from devgrid_api.api import router
 
 urlpatterns = i18n_patterns(
     path("api/v1/", include(router)),
-    path("admin/", admin.site.urls),
     path("healthcheck/", include("health_check.urls")),
     *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
     prefix_default_language=False
