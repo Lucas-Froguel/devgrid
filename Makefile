@@ -17,3 +17,7 @@ run:
 
 down:
 	docker-compose down
+
+init:
+	cp .env.template .env
+	make build
