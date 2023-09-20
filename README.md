@@ -34,7 +34,7 @@ make build
 ```
 And also
 ```bash
-make up
+make run
 ```
 
 This will build and run the container, which will be accessed via the api in the localhost at port 8000. 
@@ -50,7 +50,7 @@ after having build the application. Test coverage as of now is 95%.
 # The endpoints
 
 The endpoints are located at `http://localhost:8000/api/v1/add_cities/` and `http://localhost:8000/api/v1/get_cities/`. For 
-convenience, we add two working codes that use curl to make the requests. The first one contains the list of ids form the 
+convenience, we add two working codes that use curl to make the requests. The first one contains the list of ids from the 
 given pdf. 
 ```bash
 curl --location 'http://localhost:8000/api/v1/add_cities/' \
