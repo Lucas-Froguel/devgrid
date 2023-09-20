@@ -75,7 +75,9 @@ def get_user_cities_percentage(user_id: str) -> float:
         query={"checked": True}
     )
 
-    percentage = 100 * (len(cities_in_db[0]["city_ids"]) / len(user["cities"]))
+    percentage = 0
+    if cities_in_db:
+        percentage = 100 * (len(cities_in_db[0]["city_ids"]) / len(user["cities"]))
 
     return percentage
 

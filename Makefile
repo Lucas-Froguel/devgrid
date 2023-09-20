@@ -7,7 +7,7 @@ help:
 all: all test build run down
 
 test:
-	docker-compose run web pytest --cov
+	docker-compose run web --test
 
 build:
 	docker-compose build

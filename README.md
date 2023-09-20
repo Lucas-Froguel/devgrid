@@ -28,8 +28,7 @@ cp .env.template .env
 ```
 However, this still requires you to manually insert the values for the keys, which will lead to some odd behavior if not
 set appropriately. In light of this, together with the link to this application, the actual `.env` used by me will
-also be sent. In this case, you can skip the above command. 
-Then
+also be sent. In this case, you can skip the above command. Then
 ```bash
 make build
 ```
@@ -46,7 +45,7 @@ Just run
 ```bash
 make test
 ```
-after having build the application. 
+after having build the application. Test coverage as of now is 95%. 
 
 # The endpoints
 

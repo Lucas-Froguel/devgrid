@@ -33,7 +33,7 @@ start_cron(){
 
 default_start(){
     wait_for_db
-    #start_cron
+    start_cron
     start_server
     exit_with_error
 }

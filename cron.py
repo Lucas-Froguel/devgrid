@@ -24,13 +24,19 @@ def scan_db_and_get_cites_data():
             if response.status_code == "400":
                 break
             data = response.json()
-            checked_city ={
-                "city_id": city,
-                "checked": True,
-                "temperature": data["main"]["temp"],
-                "humidity": data["main"]["humidity"]
-            }
-            print(f"City {city} checked")
+            if data.pop("cod") == "404":
+                checked_city = {
+                    "city_id": city,
+                    "checked": True,
+                    "message": "City code is wrong."
+                }
+            else:
+                checked_city ={
+                    "city_id": city,
+                    "checked": True,
+                    "temperature": data["main"]["temp"],
+                    "humidity": data["main"]["humidity"]
+                }
 
             col.replace_one(
                 filter={"city_id": city}, replacement=checked_city
