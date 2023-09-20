@@ -20,6 +20,9 @@ tries to get their data, stopping in the case of failure. If the script takes mo
 because a new job will start and keep doing the job - this way we avoid duplications and fulfill the requirement of
 60 requests per minute the api imposes to us.
 
+We could have added to the cities a `date` or `date+hour` tag, if we decided that our data was only good enough for a day
+or for some given hours. As this did not enter the requirements of the project, I did not implement this solution. 
+
 # How to run
 
 In order to run the application, you only need three commands. First,
